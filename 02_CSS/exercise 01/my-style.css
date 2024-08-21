@@ -1,0 +1,15 @@
+.alt-title {
+  color: green;
+}
+
+h1 {
+  color: red;
+}
+
+h2:nth-child(3) {
+  color: blue;
+}
+
+ul li:nth-child(2n) {
+  color: pink;
+}
