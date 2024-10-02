@@ -23,12 +23,12 @@ document.getElementById('promiseBtn').addEventListener('click', () => {
     .then((result) => {
       promiseResult.textContent = result;
     })
+    .then(() => console.log('Otro then'))
     .catch((error) => {
       promiseResult.textContent = error;
     });
 
-  // Non blocking: Podemos seguir ejecutando despues
-  console.log('Yes');
+  console.log('Linea');
 });
 
 // Simulating API call with async/await
