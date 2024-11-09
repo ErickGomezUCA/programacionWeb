@@ -12,9 +12,7 @@ const envSchema = Joi.object({
   PORT: Joi.number().required(),
   MONGO_URI: Joi.string().uri().required(),
   JWT_SECRET: Joi.string().required(),
-})
-  .unknown()
-  .required();
+}).required();
 
 const { error, value: envVars } = envSchema.validate(process.env);
 if (error) {
