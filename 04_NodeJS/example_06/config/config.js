@@ -12,7 +12,9 @@ const envSchema = Joi.object({
   PORT: Joi.number().required(),
   MONGO_URI: Joi.string().uri().required(),
   JWT_SECRET: Joi.string().required(),
-}).required();
+})
+  .required()
+  .unknown(); // ? why unknown
 
 const { error, value: envVars } = envSchema.validate(process.env);
 if (error) {
@@ -20,7 +22,7 @@ if (error) {
 }
 
 export const config = {
-  port: envVars.port,
-  mongoUri: envVars.mongoUri,
-  jwtSecret: envVars.jwtSecret,
+  port: envVars.PORT,
+  mongoUri: envVars.MONGO_URI,
+  jwtSecret: envVars.JWT_SECRET,
 };
