@@ -1,7 +1,11 @@
 import * as userRepository from '../repositories/user.repository.js';
 import jwt from 'jsonwebtoken';
 import { config } from '../config/config.js';
-import { UserAlreadyExistsError, InvalidCredentialsError } from '../errors/errors.js';
+import {
+  UserAlreadyExistsError,
+  InvalidCredentialsError,
+  UserNotFoundError,
+} from '../errors/errors.js';
 
 export const registerUser = async ({ username, email, password }) => {
   const userExists = await userRepository.findUserByEmail(email);
@@ -32,4 +36,42 @@ export const loginUser = async ({ email, password }) => {
   );
 
   return token;
+};
+
+export const getAllUsers = async () => {
+  return await userRepository.findAllUsers();
+};
+
+export const getUserById = async (id) => {
+  const user = await userRepository.findUserById(id);
+
+  if (!user) {
+    throw new UserNotFoundError();
+  }
+
+  return user;
+};
+
+export const updateUser = async (id, { username, email, password }) => {
+  const userExists = await userRepository.findUserById(id);
+
+  if (!userExists) {
+    throw new UserNotFound();
+  }
+
+  return await userRepository.updateUser(id, {
+    username,
+    email,
+    password,
+  });
+};
+
+export const deleteUser = async (id) => {
+  const userExists = await userRepository.findUserById(id);
+
+  if (!userExists) {
+    throw new UserNotFoundError();
+  }
+
+  return await userRepository.deleteUser(id);
 };

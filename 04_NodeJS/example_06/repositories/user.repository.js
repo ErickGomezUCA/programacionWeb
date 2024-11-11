@@ -1,6 +1,15 @@
 import User from '../models/user.model.js';
 
 /**
+ * Encuentra todos los usuarios.
+ * @params {void} - Sin parámetros.
+ * @returns {Promise<User[]|null>} Lista de usuarios.
+ */
+export const findAllUsers = async () => {
+  return await User.find();
+};
+
+/**
  * Encuentra un usuario por su email.
  * @param {string} email - Email del usuario.
  * @returns {Promise<User|null>} Usuario si se encuentra, o null.
@@ -35,7 +44,10 @@ export const createUser = async ({ username, email, password }) => {
  * @returns {Promise<User|null>} Usuario actualizado o null si no se encuentra.
  */
 export const updateUserById = async (id, updates) => {
-  return await User.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+  return await User.findByIdAndUpdate(id, updates, {
+    new: true,
+    runValidators: true,
+  });
 };
 
 /**
@@ -48,9 +60,10 @@ export const deleteUserById = async (id) => {
 };
 
 export default {
+  findAllUsers,
   findUserByEmail,
   findUserById,
   createUser,
   updateUserById,
-  deleteUserById
+  deleteUserById,
 };

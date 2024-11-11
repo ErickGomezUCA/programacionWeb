@@ -12,3 +12,10 @@ export class InvalidCredentialsError extends Error {
     this.name = 'InvalidCredentialsError';
   }
 }
+
+export class UserNotFoundError extends Error {
+  constructor(message = 'User not found') {
+    super(message);
+    this.name = 'UserNotFoundError';
+  }
+}
