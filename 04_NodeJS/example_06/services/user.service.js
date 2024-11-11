@@ -56,7 +56,7 @@ export const updateUser = async (id, { username, email, password }) => {
   const userExists = await userRepository.findUserById(id);
 
   if (!userExists) {
-    throw new UserNotFound();
+    throw new UserNotFoundError();
   }
 
   return await userRepository.updateUser(id, {
