@@ -19,3 +19,10 @@ export class UserNotFoundError extends Error {
     this.name = 'UserNotFoundError';
   }
 }
+
+export class PostNotFoundError extends Error {
+  constructor(message = 'Post not found') {
+    super(message);
+    this.name = 'PostNotFoundError';
+  }
+}
