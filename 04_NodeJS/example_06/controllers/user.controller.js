@@ -2,6 +2,7 @@ import * as userService from '../services/user.service.js';
 import {
   UserAlreadyExistsError,
   InvalidCredentialsError,
+  UserNotFoundError,
 } from '../errors/errors.js';
 import SuccessResponseBuilder from '../helpers/success-response-builder.js';
 import ErrorResponseBuilder from '../helpers/error-response-builder.js';
@@ -128,6 +129,128 @@ export const getAllUsers = async (req, res) => {
         new ErrorResponseBuilder()
           .setStatus(500)
           .setMessage('Error retrieving users')
+          .setError(error.message)
+          .build()
+      );
+  }
+};
+
+export const getUserById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await userService.getUserById(id);
+    res
+      .status(200)
+      .json(
+        new SuccessResponseBuilder()
+          .setStatus(200)
+          .setMessage('User retrieved')
+          .setContent({ user })
+          .build()
+      );
+  } catch (error) {
+    if (error instanceof UserNotFoundError) {
+      return res
+        .status(404)
+        .json(
+          new ErrorResponseBuilder()
+            .setStatus(404)
+            .setMessage('User not found')
+            .setError(error.message)
+            .build()
+        );
+    }
+
+    res
+      .status(500)
+      .json(
+        new ErrorResponseBuilder()
+          .setStatus(500)
+          .setMessage('Error retrieving user')
+          .setError(error.message)
+          .build()
+      );
+  }
+};
+
+export const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { username, email, password } = req.body;
+
+  try {
+    const user = await userService.updateUser(id, {
+      username,
+      email,
+      password,
+    });
+    res
+      .status(200)
+      .json(
+        new SuccessResponseBuilder()
+          .setStatus(200)
+          .setMessage('User updated')
+          .setContent({ user })
+          .build()
+      );
+  } catch (error) {
+    if (error instanceof UserNotFoundError) {
+      return res
+        .status(404)
+        .json(
+          new ErrorResponseBuilder()
+            .setStatus(404)
+            .setMessage('User not found')
+            .setError(error.message)
+            .build()
+        );
+    }
+
+    res
+      .status(500)
+      .json(
+        new ErrorResponseBuilder()
+          .setStatus(500)
+          .setMessage('Error updating user')
+          .setError(error.message)
+          .build()
+      );
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await userService.deleteUser(id);
+    res
+      .status(200)
+      .json(
+        new SuccessResponseBuilder()
+          .setStatus(200)
+          .setMessage('User deleted')
+          .setContent({ user })
+          .build()
+      );
+  } catch (error) {
+    if (error instanceof UserNotFoundError) {
+      return res
+        .status(404)
+        .json(
+          new ErrorResponseBuilder()
+            .setStatus(404)
+            .setMessage('User not found')
+            .setError(error.message)
+            .build()
+        );
+    }
+
+    res
+      .status(500)
+      .json(
+        new ErrorResponseBuilder()
+          .setStatus(500)
+          .setMessage('Error deleting user')
           .setError(error.message)
           .build()
       );

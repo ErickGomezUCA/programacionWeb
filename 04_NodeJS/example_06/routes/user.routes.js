@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login } from '../controllers/user.controller.js';
+import * as userController from '../controllers/user.controller.js';
 import {
   userLoginValidationRules,
   userRegisterValidationRules,
@@ -9,7 +9,16 @@ import validate from '../middlewares/validation.middleware.js';
 const router = express.Router();
 
 // Ruta de registro con validación de datos
-router.post('/register', userRegisterValidationRules, validate, register);
-router.post('/login', userLoginValidationRules, validate, login);
+router.get('/', userController.getAllUsers);
+router.get('/:id', userController.getUserById);
+router.post(
+  '/register',
+  userRegisterValidationRules,
+  validate,
+  userController.register
+);
+router.post('/login', userLoginValidationRules, validate, userController.login);
+router.put('/:id', userController.updateUser);
+router.delete('/:id', userController.deleteUser);
 
 export default router;
