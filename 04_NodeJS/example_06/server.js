@@ -15,7 +15,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: '*', // Allow requests from any origin
-  }
+  },
 });
 
 // Use the socket middleware

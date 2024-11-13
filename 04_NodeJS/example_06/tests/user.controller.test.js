@@ -1,7 +1,10 @@
 import request from 'supertest';
 import app from '../app.js';
 import mongoose from 'mongoose';
-import { connectToDatabase, disconnectFromDatabase } from '../config/database.js';
+import {
+  connectToDatabase,
+  disconnectFromDatabase,
+} from '../config/database.js';
 
 // Conectar a la base de datos antes de todos los tests
 beforeAll(async () => {
@@ -24,7 +27,10 @@ describe('User API', () => {
       });
 
       expect(res.statusCode).toEqual(201);
-      expect(res.body).toHaveProperty('message', 'User registered successfully');
+      expect(res.body).toHaveProperty(
+        'message',
+        'User registered successfully'
+      );
     });
 
     it('should return validation errors for invalid data', async () => {

@@ -46,7 +46,7 @@ export const socketMiddleware = (io) => {
         console.error('Private message attempt from unauthenticated user');
         return; // Prevent sending private messages from unauthenticated users
       }
-      
+
       console.log(`Private message from ${socket.user.id} to ${to}:`, msg);
       socket.to(to).emit('privateMessage', msg); // Send message to the specific user
     });
