@@ -57,11 +57,10 @@ export const getAllPosts = async (req, res) => {
 };
 
 export const getUserPosts = async (req, res) => {
-  const { user } = req.params;
+  const userId = req.user.id;
 
   try {
-    const posts = await postService.getPostsByUser(user);
-    res.json(posts);
+    const posts = await postService.getPostsByUser(userId);
     res
       .status(200)
       .json(

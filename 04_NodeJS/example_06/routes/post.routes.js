@@ -15,7 +15,7 @@ router.post(
   postController.createPost
 );
 router.get('/', postController.getAllPosts);
-router.get('/user/:user', authMiddleware, postController.getUserPosts);
+router.get('/user', authMiddleware, postController.getUserPosts);
 router.get('/:id', postController.getPostById);
 router.put(
   '/:id',
