@@ -59,7 +59,7 @@ export const updateUser = async (id, { username, email, password }) => {
     throw new UserNotFoundError();
   }
 
-  return await userRepository.updateUser(id, {
+  return await userRepository.updateUserById(id, {
     username,
     email,
     password,
@@ -73,5 +73,5 @@ export const deleteUser = async (id) => {
     throw new UserNotFoundError();
   }
 
-  return await userRepository.deleteUser(id);
+  return await userRepository.deleteUserById(id);
 };

@@ -18,7 +18,12 @@ router.post(
   userController.register
 );
 router.post('/login', userLoginValidationRules, validate, userController.login);
-router.put('/:id', userController.updateUser);
+router.put(
+  '/:id',
+  userRegisterValidationRules,
+  validate,
+  userController.updateUser
+);
 router.delete('/:id', userController.deleteUser);
 
 export default router;
